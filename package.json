@@ -1,1 +1,0 @@
-{"name":"ps99-value-finder","version":"2.0.0","private":true,"description":"PS99 Value Finder Market Tracker","scripts":{"start":"node server.js"}}
