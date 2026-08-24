@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PS99 Market Hub – Pet Simulator 99 Values, RAP, 24h Trends und Potential Score.">
+<title>PS99 Market Hub</title>
+<link rel="preconnect" href="https://ps99.biggamesapi.io">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="aurora"></div><div class="grid-bg"></div>
+<header class="topbar">
+  <div class="brand"><div class="logo">99</div><div><b>PS99 Market Hub</b><span>Values · Trends · Potential</span></div></div>
+  <nav><button class="nav-btn active" data-view="market">Market</button><button class="nav-btn" data-view="trending">Trending</button><button class="nav-btn" data-view="watchlist">Watchlist</button></nav>
+  <div class="header-tools"><div class="live"><i></i><span id="status">Connecting</span></div><button id="themeBtn" class="icon-btn" title="Theme wechseln">☼</button><button id="refreshBtn" class="icon-btn" title="Jetzt aktualisieren">↻</button></div>
+</header>
+<main class="container">
+  <section class="hero">
+    <div class="hero-copy"><div class="eyebrow">PET SIMULATOR 99 · MARKET INTELLIGENCE</div><h1>Finde Pets, die <em>unterbewertet</em> sind.</h1><p>Alle Pets durchsuchen, nach RAP und Exists filtern und mit 24h-Momentum sehen, welche Pets gerade steigen oder fallen.</p><div class="hero-actions"><button id="findBtn" class="primary">✦ Beste Chancen</button><button id="compareBtn" class="secondary">⇄ Vergleich</button></div></div>
+    <div class="hero-panel"><div class="spark-title"><span>Market Pulse</span><b id="pulseLabel">Live</b></div><div class="big-num" id="marketPulse">—</div><div class="pulse-sub">durchschnittliche 24h-Bewegung</div><div class="pulse-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="hero-mini"><div><b id="petCount">—</b><small>Variants</small></div><div><b id="trackedCount">—</b><small>mit RAP</small></div><div><b id="snapshotCount">—</b><small>Snapshots</small></div></div></div>
+  </section>
+
+  <section class="kpis">
+    <div class="kpi"><span>24h Top Gainer</span><b id="topGainer">—</b><small id="topGainerMove">—</small></div>
+    <div class="kpi"><span>24h Top Loser</span><b id="topLoser">—</b><small id="topLoserMove">—</small></div>
+    <div class="kpi"><span>Best Potential</span><b id="topPotential">—</b><small id="topPotentialScore">—</small></div>
+    <div class="kpi"><span>Most Scarce</span><b id="mostScarce">—</b><small id="mostScarceExists">—</small></div>
+  </section>
+
+  <section class="workspace">
+    <aside class="sidebar card">
+      <div class="side-head"><b>Filter</b><button id="resetBtn" class="link-btn">Reset</button></div>
+      <label class="search"><span>⌕</span><input id="search" placeholder="Pet suchen…"><kbd>/</kbd></label>
+      <div class="filter-group"><label>Kategorie</label><div class="chips" id="category"><button class="active" data-v="all">Alle</button><button data-v="Huge">Huge</button><button data-v="Titanic">Titanic</button><button data-v="Gargantuan">Gargantuan</button></div></div>
+      <div class="filter-group"><label>Variante</label><div class="chips" id="variant"><button class="active" data-v="all">Alle</button><button data-v="normal">Normal</button><button data-v="gold">Golden</button><button data-v="rainbow">Rainbow</button><button data-v="shiny">Shiny</button></div></div>
+      <div class="filter-group"><label>RAP Bereich</label><div class="two-inputs"><input id="minRap" type="number" placeholder="Min"><span>–</span><input id="maxRap" type="number" placeholder="Max"></div></div>
+      <div class="filter-group"><label>Marktstatus</label><label class="switch"><input id="tracked" type="checkbox" checked><span></span>Nur mit RAP</label><label class="switch"><input id="positive" type="checkbox"><span></span>Nur steigende</label><label class="switch"><input id="highPotential" type="checkbox"><span></span>Nur 70+ Potential</label></div>
+      <div class="sidebar-tip"><span>⚡</span><div><b>Trading Tipp</b><p>Potential ist eine Heuristik aus Momentum, Beschleunigung, Knappheit und Kategorie. Kein Gewinnversprechen.</p></div></div>
+    </aside>
+
+    <section class="content">
+      <div class="content-top"><div><b id="results">0</b><span> Pets gefunden</span></div><div class="sort"><span>Sortieren:</span><select id="sort"><option value="potential">Potential ↓</option><option value="move">24h Change ↓</option><option value="rapAsc">RAP niedrig → hoch</option><option value="rapDesc">RAP hoch → niedrig</option><option value="existsAsc">Exists niedrig → hoch</option><option value="existsDesc">Exists hoch → niedrig</option><option value="name">Name A–Z</option></select><button id="viewBtn" class="icon-btn" title="Ansicht wechseln">▦</button></div></div>
+      <div id="featured" class="featured-row"></div>
+      <div id="grid" class="pet-grid"></div>
+      <button id="loadMore" class="load-more">Mehr anzeigen</button>
+      <div id="empty" class="empty hidden"><div>⌁</div><h3>Keine Pets gefunden</h3><p>Ändere deine Filter oder suche nach einem anderen Namen.</p></div>
+    </section>
+  </section>
+</main>
+
+<div id="drawer" class="drawer" aria-hidden="true"><div class="drawer-backdrop"></div><aside class="detail-card"><button id="closeDrawer" class="close">×</button><div id="detail"></div></aside></div>
+<div id="compareBar" class="compare-bar hidden"><div><b>Vergleich</b><span id="compareCount">0/3</span></div><div id="compareItems"></div><button id="compareOpen" class="primary small">Vergleichen</button></div>
+<div id="toast" class="toast"></div>
+<footer><span>PS99 Market Hub</span><span>Daten: BIG Games Public API · RAP = Recent Average Price · zuletzt <b id="footerTime">—</b></span></footer>
+<script src="app.js"></script>
+</body></html>
